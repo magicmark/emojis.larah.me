@@ -1,1 +1,4 @@
-# emojis.larah.me
+# emojis.larah.lol
+
+👉️ https://emojis.larah.lol
+

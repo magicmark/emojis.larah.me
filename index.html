@@ -6,7 +6,14 @@
   <title>Emojis</title>
 </head>
 <body>
-  <div id="app"></div>
+  <header class="search-bar">
+    <input type="text" id="search" placeholder="Search emojis..." autocomplete="off" autofocus />
+  </header>
+  <div class="layout">
+    <nav class="sidebar" id="sidebar"></nav>
+    <main class="grid" id="grid"></main>
+  </div>
+  <div class="toast" id="toast">Copied!</div>
   <script type="module" src="/src/main.ts"></script>
 </body>
 </html>

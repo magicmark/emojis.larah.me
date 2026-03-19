@@ -31,26 +31,6 @@ function resolveShortcodes(hexcode: string): string[] | undefined {
 //  - compact uses `unicode` (not `emoji`) and `label` (not `annotation`)
 //  - shortcodes are stored separately and must be merged
 //  - filter out emojis without a group (e.g. regional indicators, components)
-// Detect whether the browser can render a given emoji (not tofu)
-function canRenderEmoji(emoji: string): boolean {
-  const canvas = document.createElement('canvas');
-  canvas.width = 20;
-  canvas.height = 20;
-  const ctx = canvas.getContext('2d')!;
-  ctx.font = '16px serif';
-  ctx.fillText(emoji, 0, 16);
-
-  // Draw a character we know won't render — U+FFFF
-  const blank = document.createElement('canvas');
-  blank.width = 20;
-  blank.height = 20;
-  const bctx = blank.getContext('2d')!;
-  bctx.font = '16px serif';
-  bctx.fillText('\uFFFF', 0, 16);
-
-  return canvas.toDataURL() !== blank.toDataURL();
-}
-
 export const allEmojis: Emoji[] = (compactData as any[])
   .filter((e) => typeof e.group === 'number')
   .map((e) => ({
@@ -60,8 +40,7 @@ export const allEmojis: Emoji[] = (compactData as any[])
     group: e.group,
     shortcodes: resolveShortcodes(e.hexcode) ?? e.shortcodes,
     tags: e.tags,
-  }))
-  .filter((e) => canRenderEmoji(e.emoji));
+  }));
 
 // Extract groups from messages dataset
 export const groups: Group[] = messages.groups.map((g) => ({
